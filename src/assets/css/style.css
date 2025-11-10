@@ -1,16 +1,18 @@
 :root {
-    --blue: #4fc3f7;
-    --green: #81c784;
-    --coral: #ff8a65;
-    --purple: #7e57c2;
-    --deep-purple: #a688da;
-    --dark: #263238;
-    --white: #ffffff;
-    /* Neutrals & focus (for future scalability) */
-    --gray-50: #fafbfc;
-    --gray-100: #f0f3f5;
-    --gray-300: #d2d7db;
-    --focus-ring: #ffca28;
+  --blue: #0ea5e9;
+  --green: #10b981;
+  --coral: #f43f5e;
+  --purple: #374151;
+  --deep-purple: #1f2937;
+  --dark: #0f172a;
+  --white: #ffffff;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-300: #cbd5e1;
+  --focus-ring: #ffca28;
+  --btn-bg: var(--purple);
+  --btn-hover: var(--deep-purple);
+  --btn-text: var(--white);
 }
 
 body {
@@ -26,7 +28,8 @@ header {
     color: var(--white);
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
 }
 
 .navbar {
@@ -91,8 +94,8 @@ header {
 }
 
 .btn {
-    background: var(--green);
-    color: var(--white);
+    background: var(--btn-bg);
+    color: var(--btn-text);
     padding: 0.8rem 1.2rem;
     border-radius: 5px;
     text-decoration: none;
@@ -102,7 +105,7 @@ header {
 }
 
 .btn:hover {
-    background: var(--coral);
+    background: var(--btn-hover);
 }
 
 .btn:focus-visible {
@@ -162,16 +165,6 @@ header {
     background: var(--green);
 }
 
-.updates h3{
-    background: var(--purple);
-    color: var(--white);
-    text-align: center;
-    display: block;
-    margin: 0 0 1.25rem; /* contained header bar */
-    padding: 0.75rem 1rem; /* comfortable interior padding */
-    border-radius: 10px; /* pill/card look */
-}
-
 .update-card {
     background: var(--deep-purple);
     color: var(--white);
@@ -179,6 +172,7 @@ header {
     padding: 1.5rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    z-index: 1;
 }
 
 /* === Learning Card Multi-topic Layout === */
@@ -186,6 +180,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    z-index: 1;
 }
 
 .learning-card-header {
@@ -264,26 +259,6 @@ header {
     .learning-topics { grid-template-columns: 1fr; }
     .learning-topic { padding: 0.8rem 0.85rem; }
     .learning-card-header h3 { font-size: 1.05rem; }
-}
-
-.aws-update {
-    background: var(--blue);
-    color: var(--dark);
-    border-radius: 10px;
-    padding: 1.3rem;
-
-}
-.fullstack-update {
-    background: var(--coral);
-    color: var(--dark);
-    border-radius: 10px;
-    padding: 1.3rem;
-}
-.security-update {
-    background: var(--green);
-    color: var(--dark);
-    border-radius: 10px;
-    padding: 1.3rem;
 }
 
 .topic-card:hover,
@@ -381,13 +356,10 @@ footer {
         padding: 2rem 1rem;
     }
 
-    .nav-toggle { display: inline-flex; align-self: flex-end; }
-    /* Collapse nav by default on mobile */
     .nav-links {
         display: none;
         padding: 0.5rem 0;
     }
-    .nav-links.open { display: block; }
     .nav-links li { display: block; text-align: right; }
 }
 
