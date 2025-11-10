@@ -12,20 +12,20 @@
 Defined in `src/assets/css/style.css`:
 
 ```css
---blue: #4fc3f7; /* AWS accent (light) */
---green: #81c784; /* Security+ accent (light) */
---coral: #ff8a65; /* Full Stack accent (light) */
---purple: #7e57c2; /* Brand header */
---deep-purple: #a688da; /* Surface for update cards */
---dark: #263238; /* Base text */
---white: #ffffff; /* Inverse text */
---gray-50: #fafbfc; /* Neutral backgrounds */
---gray-100: #f0f3f5; /* Subtle surface */
---gray-300: #d2d7db; /* Borders */
---focus-ring: #ffca28; /* Accessible focus outline */
+--blue: #0ea5e9;      /* Azure accent */
+--green: #10b981;     /* Emerald accent */
+--rose: #f43f5e;      /* Rose accent */
+--slate: #374151;     /* Brand header */
+--slate-dark: #1f2937;/* Surface for update cards */
+--navy: #0f172a;      /* Base text / footer */
+--white: #ffffff;     /* Inverse text */
+--gray-50: #f8fafc;   /* Neutral backgrounds */
+--gray-100: #f1f5f9;  /* Subtle surface */
+--gray-300: #cbd5e1;  /* Borders */
+--amber: #ffca28;     /* Accessible focus outline */
 ```
 
-Light accent backgrounds (blue, green, coral) use dark text for WCAG contrast; darker surfaces (purple, deep-purple, dark) use white text. When adding new accent categories, prefer a light background + dark text or provide a darker variant if you need white text.
+Light accent backgrounds (blue, green, rose) use dark text for WCAG contrast; darker surfaces (slate, slate-dark, navy) use white text. When adding new accent categories, prefer a light background + dark text or provide a darker variant if you need white text.
 
 ### Learning Update Cards (3 Topics)
 
@@ -33,10 +33,10 @@ In `index.html` each daily card uses the structure:
 
 ```html
 <article class="update-card learning-card">
-  <header class="learning-card-header">
+  <article-title class="learning-card-header">
     <h3>Day X</h3>
     <span class="learning-date">MMM DD, YYYY</span>
-  </header>
+  </article-title>
   <div class="learning-topics">
     <div class="learning-topic topic-aws">
       <h4>AWS: Title</h4>
@@ -60,7 +60,7 @@ Add new days by copying an existing card; keep headings short (≤60 chars) and 
 
 - Skip link present at top of pages.
 - Mobile nav toggle uses `aria-expanded` and is keyboard accessible.
-- Focus outlines standardized via `--focus-ring`.
+- Focus outlines standardized via `--amber`.
 - Contrast: Avoid white text on light accent colors unless you darken the background.
 
 ### Future Enhancements (Optional)
