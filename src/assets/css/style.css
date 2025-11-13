@@ -98,6 +98,10 @@ header {
     color: var(--green);
 }
 
+.nav-links li:last-child a:hover {
+    color: var(--rose)
+}
+
 .nav-links a:focus-visible {
     outline: 3px solid rgba(255, 255, 255, 0.85);
     outline-offset: 2px;
@@ -106,8 +110,8 @@ header {
 #hero {
     background: linear-gradient(90deg,
             var(--blue) 0%,
-        var(--rose) 50%,
-            var(--green) 100%);
+            var(--green) 50%,
+            var(--rose) 100%);
     color: var(--white);
     padding: 4rem 2rem 3rem 2rem;
     text-align: center;
