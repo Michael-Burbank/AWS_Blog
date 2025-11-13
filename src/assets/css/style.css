@@ -375,7 +375,7 @@ footer {
 }
 
 @media (max-width: 900px) {
-    .mobile-nav-toggle {
+    .menu-toggle {
         display: block;
     }
 
@@ -403,7 +403,6 @@ footer {
         padding: 1rem;
         /* display: none; */
     }
-
 
     .nav-links li {
         margin: 0.25rem 0.5rem;
