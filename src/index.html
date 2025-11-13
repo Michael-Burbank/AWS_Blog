@@ -2,10 +2,10 @@
 <html lang="en" scroll="smooth">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Michael Burbank | Learning Journey</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
 <body>
@@ -17,6 +17,10 @@
                 <li><a href="fullstack.html">Full Stack</a></li>
                 <li><a href="security.html">Security+</a></li>
             </ul>
+            <button id="menu-toggle" class="menu-toggle" aria-controls="primary-nav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="ri-menu-line" aria-hidden="true"></i>
+            </button>
         </nav>
     </header>
 
@@ -24,8 +28,9 @@
         <section id="hero">
             <div class="hero-content">
                 <h2>🚀 Leveling Up Every Day 📈</h2>
-                <p>Publicly sharing my journey learning AWS, Full Stack Web Development, and CompTIA Security+ best
-                    practices.
+                <p>
+                    Publicly sharing my journey learning AWS, Full Stack Web
+                    Development, and CompTIA Security+ best practices.
                 </p>
                 <a href="#updates" class="btn">View My Progress</a>
             </div>
@@ -36,17 +41,26 @@
             <div class="topic-grid">
                 <article id="aws" class="topic-card aws-topic-card">
                     <h3>AWS Cloud Mastery ☁️</h3>
-                    <p>My journey learning AWS architecture, S3 hosting, IAM, EC2, and deployment best practices.</p>
+                    <p>
+                        My journey learning AWS architecture, S3 hosting, IAM, EC2, and
+                        deployment best practices.
+                    </p>
                     <a class="topic-cta" href="aws.html" aria-label="Explore AWS">Explore AWS →</a>
                 </article>
                 <article id="fullstack" class="topic-card fullstack-topic-card">
                     <h3>Full Stack Web Dev 💻</h3>
-                    <p>Building dynamic web applications with HTML, CSS, JavaScript, Node.js, and React.</p>
+                    <p>
+                        Building dynamic web applications with HTML, CSS, JavaScript,
+                        Node.js, and React.
+                    </p>
                     <a class="topic-cta" href="fullstack.html" aria-label="Explore Full Stack">Explore Full Stack →</a>
                 </article>
                 <article id="security" class="topic-card security-topic-card">
                     <h3>CompTIA Security+ 🔒</h3>
-                    <p>Studying security fundamentals, network defense, and best practices to stay secure online.</p>
+                    <p>
+                        Studying security fundamentals, network defense, and best
+                        practices to stay secure online.
+                    </p>
                     <a class="topic-cta" href="security.html" aria-label="Explore Security+">Explore Security+ →</a>
                 </article>
             </div>
@@ -64,11 +78,17 @@
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
                             <h4>AWS: Setting Up S3 Blog</h4>
-                            <p>Provisioned S3 static hosting, configured bucket policy & public access controls.</p>
+                            <p>
+                                Provisioned S3 static hosting, configured bucket policy &
+                                public access controls.
+                            </p>
                         </div>
                         <div class="learning-topic topic-fullstack">
                             <h4>Full Stack: First React Components</h4>
-                            <p>Built reusable functional components and practiced lifting state up.</p>
+                            <p>
+                                Built reusable functional components and practiced lifting
+                                state up.
+                            </p>
                         </div>
                         <div class="learning-topic topic-security">
                             <h4>Security+: Core Security Principles</h4>
@@ -84,15 +104,24 @@
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
                             <h4>AWS: IAM Policies</h4>
-                            <p>Created least-privilege IAM user & custom policy JSON for S3 only access.</p>
+                            <p>
+                                Created least-privilege IAM user & custom policy JSON for S3
+                                only access.
+                            </p>
                         </div>
                         <div class="learning-topic topic-fullstack">
                             <h4>Full Stack: Node.js API</h4>
-                            <p>Implemented REST endpoints with Express and added basic error middleware.</p>
+                            <p>
+                                Implemented REST endpoints with Express and added basic error
+                                middleware.
+                            </p>
                         </div>
                         <div class="learning-topic topic-security">
                             <h4>Security+: Encryption Basics</h4>
-                            <p>Compared symmetric vs asymmetric algorithms and TLS handshake steps.</p>
+                            <p>
+                                Compared symmetric vs asymmetric algorithms and TLS handshake
+                                steps.
+                            </p>
                         </div>
                     </div>
                 </article>
@@ -104,15 +133,23 @@
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
                             <h4>AWS: CloudFront Intro</h4>
-                            <p>Explored CDN caching behaviors & origin access to reduce latency.</p>
+                            <p>
+                                Explored CDN caching behaviors & origin access to reduce
+                                latency.
+                            </p>
                         </div>
                         <div class="learning-topic topic-fullstack">
                             <h4>Full Stack: Async Patterns</h4>
-                            <p>Used Promises & async/await to clean up chained fetch logic.</p>
+                            <p>
+                                Used Promises & async/await to clean up chained fetch logic.
+                            </p>
                         </div>
                         <div class="learning-topic topic-security">
                             <h4>Security+: Access Control Models</h4>
-                            <p>Studied DAC, MAC, RBAC differences and typical usage scenarios.</p>
+                            <p>
+                                Studied DAC, MAC, RBAC differences and typical usage
+                                scenarios.
+                            </p>
                         </div>
                     </div>
                 </article>
@@ -124,37 +161,46 @@
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
                             <h4>AWS: Monitoring Basics</h4>
-                            <p>Set CloudWatch alarms for S3 error rate & reviewed metrics dashboard.</p>
+                            <p>
+                                Set CloudWatch alarms for S3 error rate & reviewed metrics
+                                dashboard.
+                            </p>
                         </div>
                         <div class="learning-topic topic-fullstack">
                             <h4>Full Stack: Form Validation</h4>
-                            <p>Added client + server validation patterns & sanitized input payloads.</p>
+                            <p>
+                                Added client + server validation patterns & sanitized input
+                                payloads.
+                            </p>
                         </div>
                         <div class="learning-topic topic-security">
                             <h4>Security+: Authentication vs Authorization</h4>
-                            <p>Clarified differences; mapped to IAM roles and Express middleware layers.</p>
+                            <p>
+                                Clarified differences; mapped to IAM roles and Express
+                                middleware layers.
+                            </p>
                         </div>
                     </div>
                 </article>
                 <!-- Template to copy for future days:
                 <article class="update-card learning-card">
-                  <article-title class="learning-card-header">
+                <article-title class="learning-card-header">
                     <h3>Day X</h3><span class="learning-date">MMM DD, YYYY</span>
-                  </article-title>
-                  <div class="learning-topics">
+                </article-title>
+                <div class="learning-topics">
                     <div class="learning-topic topic-aws">
-                      <h4>AWS: Topic Title</h4>
-                      <p>Short description.</p>
+                    <h4>AWS: Topic Title</h4>
+                    <p>Short description.</p>
                     </div>
                     <div class="learning-topic topic-fullstack">
-                      <h4>Full Stack: Topic Title</h4>
-                      <p>Short description.</p>
+                    <h4>Full Stack: Topic Title</h4>
+                    <p>Short description.</p>
                     </div>
                     <div class="learning-topic topic-security">
-                      <h4>Security+: Topic Title</h4>
-                      <p>Short description.</p>
+                    <h4>Security+: Topic Title</h4>
+                    <p>Short description.</p>
                     </div>
-                  </div>
+                </div>
                 </article> -->
             </div>
         </section>

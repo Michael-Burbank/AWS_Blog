@@ -5,19 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AWS Learning Journey | Michael Burbank</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
     <header>
-        <nav class="navbar">
+        <nav class="navbar" role="navigation" aria-label="Primary">
             <h1 class="logo">Michael Burbank</h1>
-            <ul class="nav-links">
+            <ul id="primary-nav" class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aws.html" class="active">AWS</a></li>
                 <li><a href="fullstack.html">Full Stack</a></li>
                 <li><a href="security.html">Security+</a></li>
             </ul>
+            <button id="menu-toggle" class="menu-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="ri-menu-line" aria-hidden="true"></i>
+            </button>
         </nav>
     </header>
 
@@ -43,6 +46,8 @@
     <footer>
         <p>© 2025 Michael Burbank. All rights reserved.</p>
     </footer>
+
+    <script src="assets/js/main.js" defer></script>
 </body>
 
 </html>
