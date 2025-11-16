@@ -397,9 +397,10 @@ footer {
         position: absolute;
         top: 100%;
         right: 0;
-        left: 0;
+        /* left: 0; */
         padding: 1rem 1.5rem;
-        background: var(--slate);
+        background: var(--slate-dark);
+        backdrop-filter: blur(50px);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
