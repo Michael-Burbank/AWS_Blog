@@ -26,11 +26,6 @@ html {
     box-sizing: inherit;
 }
 
-.nav-links {
-    display: flex;
-    flex-wrap: wrap;
-}
-
 body {
     font-family: "Poppins", sans-serif;
     margin: 0;
@@ -55,6 +50,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
+    position: relative; /* anchor for absolute dropdown */
 }
 
 .logo {
@@ -64,6 +60,8 @@ header {
 }
 
 .nav-links {
+    display: flex;
+    flex-wrap: wrap;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -81,7 +79,7 @@ header {
     transition: color 0.2s;
 }
 
-.menu-toggle{
+.menu-toggle {
     display: none;
     background: transparent;
     border: none;
@@ -99,7 +97,7 @@ header {
 }
 
 .nav-links li:last-child a:hover {
-    color: var(--rose)
+    color: var(--rose);
 }
 
 .nav-links a:focus-visible {
@@ -108,10 +106,7 @@ header {
 }
 
 #hero {
-    background: linear-gradient(90deg,
-            var(--blue) 0%,
-            var(--green) 50%,
-            var(--rose) 100%);
+    background: linear-gradient(90deg, var(--blue) 0%, var(--green) 50%, var(--rose) 100%);
     color: var(--white);
     padding: 7rem 2rem;
     text-align: center;
@@ -172,7 +167,6 @@ header {
 }
 
 .topic-card {
-    /* Light accent backgrounds need dark text for contrast */
     color: var(--navy);
     border-radius: 10px;
     padding: 1.5rem;
@@ -239,7 +233,6 @@ header {
 }
 
 .learning-card-header h3 {
-    /* Override generic .updates h3 */
     background: transparent;
     color: var(--white);
     text-align: left;
@@ -325,10 +318,7 @@ header {
     font-weight: 600;
 }
 
-.topic-card p {
-    margin: 0;
-}
-
+.topic-card p,
 .update-card p {
     margin: 0;
 }
@@ -366,40 +356,12 @@ footer {
     border-bottom: 2px solid var(--white);
 }
 
-@media (max-width: 1200px) {
+/* ====== Responsive ====== */
 
-    .topic-grid,
-    .update-grid {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    }
-}
-
-@media (max-width: 900px) {
-    .menu-toggle {
-        display: block;
-    }
-
-    .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 10vh;
-        background: var(--slate);
+/* Desktop and up */
+@media (min-width: 769px) {
+    .nav-links {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-        /* transform: translateY(-100%);
-        transition: transform 0.5s ease-in-out; */
-        z-index: 1000;
-    }
-}
-
-@media (max-width: 769px) {
-    .nav-links{
-        display: flex !important;
         position: static;
         background: transparent;
         padding: 0;
@@ -413,37 +375,15 @@ footer {
     }
 }
 
+/* Tablet/phone */
 @media (max-width: 768px) {
-
-    h1.logo{
-        /* text-align: center;
-        justify-content: center; */
+    
+    h1.logo {
         margin: auto;
-    }
-
-    .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 10vh;
-        background: var(--slate);
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-        /* transform: translateY(-100%);
-        transition: transform 0.5s ease-in-out; */
-        z-index: 1000;
     }
 
     .menu-toggle {
         display: block;
-    }
-
-    .nav-links li {
-        margin: 0.25rem 0.5rem;
     }
 
     .topics,
@@ -451,23 +391,24 @@ footer {
         padding: 2rem 1rem;
     }
 
+    /* Dropdown panel (hidden by default) */
     .nav-links {
-        padding: 1rem 1.5rem;
         display: none;
         position: absolute;
         top: 100%;
         right: 0;
         left: 0;
+        padding: 1rem 1.5rem;
         background: var(--slate);
-        box-shadow: 0 8px 20px rgba (0, 0, 0, 0.15);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
         z-index: 999;
         transition: transform 0.2s ease, opacity 0.2s ease;
-
     }
 
-    .nav-links-open{
+    /* Shown when JS toggles this class */
+    .nav-links-open {
         display: block;
     }
 
@@ -476,10 +417,18 @@ footer {
         text-align: right;
         margin: 0.5rem 0;
     }
+
     .nav-links a {
-        padding: 0.45rem 0;
         display: block;
+        padding: 0.45rem 0;
+    }
 }
+
+@media (max-width: 1200px) {
+    .topic-grid,
+    .update-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
 }
 
 @media (max-width: 480px) {
