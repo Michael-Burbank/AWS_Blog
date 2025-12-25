@@ -4,6 +4,7 @@
     --navy: #0f172a;
     --slate: #374151;
     --slate-dark: #1f2937;
+    --rest-day-bg: #152035;
 
     --blue: #0ea5e9;   /* AWS */
     --green: #10b981;  /* DevOps */
@@ -20,6 +21,11 @@
     --green-muted: color-mix(in srgb, var(--green) 55%, var(--navy) 45%);
     --amber-muted: color-mix(in srgb, var(--amber) 55%, var(--navy) 45%);
     --rose-muted: color-mix(in srgb, var(--rose) 55%, var(--navy) 45%);
+
+    /* Rest day background (neutral navy blend) */
+    --rest-day-bg-solid: color-mix(in srgb, var(--navy) 85%, var(--slate) 15%);
+    /* Slight transparency for a softer look */
+    --rest-day-bg: color-mix(in srgb, var(--rest-day-bg-solid) 85%, transparent 15%);
 }
 
 /* Fallback for older browsers without color-mix */
@@ -29,6 +35,9 @@
         --green-muted: #0a8a67;
         --amber-muted: #cc9f20;
         --rose-muted: #c5324b;
+        /* Fallback for rest day background */
+        --rest-day-bg-solid: #152035;
+        --rest-day-bg: rgba(21, 32, 53, 0.85);
     }
 }
 
@@ -77,6 +86,11 @@ header {
     font-weight: 700;
     letter-spacing: 1px;
     margin: 0;
+}
+
+.logo a{
+    text-decoration: none;
+    color: var(--white);
 }
 
 .nav-links {
@@ -324,6 +338,30 @@ header {
     transition: background 0.3s, transform 0.3s;
 }
 
+#rest-day{
+    background: var(--rest-day-bg);
+}
+
+/* ---------------CHRISTMAS-------------- */
+#christmas-eve.update-card.learning-card {
+    background-color: rgb(97, 19, 19);
+}
+
+#christmas-eve.update-card.learning-card h4{
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#christmas-day.update-card.learning-card {
+    background-color: rgb(97, 19, 19);
+}
+
+#christmas-day.update-card.learning-card h4{
+    text-align: center;
+    font-size: 1.5rem;
+}
+/* ---------------CHRISTMAS-------------- */
+
 .learning-topic:hover {
     background: rgba(255, 255, 255, 0.12);
     transform: translateY(-3px);
@@ -486,7 +524,7 @@ footer {
 
 /* ====== Rest day & badges ====== */
 .learning-card.rest-day {
-    background: var(--slate-dark);
+    background: var(--rest-day-bg);
     color: var(--white);
     border: none;
 }

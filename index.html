@@ -14,7 +14,7 @@
 <body>
     <header>
         <nav class="navbar" role="navigation" aria-label="Primary">
-            <h1 class="logo">Michael Burbank</h1>
+            <h1 class="logo"><a href ="https://michael-burbank.com/">Michael Burbank</a></h1>
             <!-- <ul id="primary-nav" class="nav-links">
                 <li class="aws-li"><a href="aws.html">AWS</a></li>
                 <li class="dev_ops-li"><a href="dev_ops.html">DevOps</a></li>
@@ -59,7 +59,7 @@
                 <article id="dev_ops" class="topic-card dev_ops-topic-card">
                     <h3>DevOps Practices ⚙️</h3>
                     <p>
-                        Implementing CI/CD pipelines, infrastructure as Code (IaC) using Ansible, automation, and
+                        Implementing the SDLC phases, CI/CD pipelines, infrastructure as Code (IaC) using Ansible, automation, and
                         monitoring solutions.
                     </p>
                     <!-- <a class="topic-cta" href="dev_ops.html" aria-label="Explore DevOps">Explore DevOps →</a> -->
@@ -95,10 +95,22 @@
                     </article-title>
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
-                            <h4>AWS Global Infrastructure</h4>
+                            <h4>AWS: Global Infrastructure</h4>
                             <p>
                                 Explored how AWS delivers global cloud services through its worldwide regions,
                                 Availability Zones, and large-scale presence.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-devops">
+                            <h4>DevOps: GitHub Repo</h4>
+                            <p>
+                                Initialize a GitHub repository to host my initial AWS project files and track changes.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-fullstack">
+                            <h4>Full Stack: Layout + Hero</h4>
+                            <p>
+                                Built the responsive grid and reusable cards, and designed the hero section with a CTA that anchors the updates feed.
                             </p>
                         </div>
                     </div>
@@ -110,10 +122,23 @@
                     </article-title>
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
-                            <h4>AWS IAM Basics</h4>
+                            <h4>AWS: IAM Basics</h4>
                             <p>
                                 Learned Identity and Access Management (IAM) fundamentals and best practices for
                                 managing users, permissions, and access securely.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-devops">
+                            <h4>DevOps: Final-Round Interview Prep</h4>
+                            <p>
+                                Reviewed common DevOps interview questions to prepare for both
+                                upcoming final-round interviews.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-fullstack">
+                            <h4>Full Stack: Semantic + A11y</h4>
+                            <p>
+                                Added semantic tags, time elements, ARIA labels, and focus-visible styles to improve accessibility and keyboard navigation.
                             </p>
                         </div>
                     </div>
@@ -125,10 +150,29 @@
                     </article-title>
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
-                            <h4>IAM Group + User Assignment</h4>
+                            <h4>AWS: IAM Group + User Assignment</h4>
                             <p>
                                 Created an IAM group and assigned my user to it to avoid using the root account,
                                 following best practices.
+                            </p>
+                        </div>
+                        <!-- <div class="learning-topic topic-devops">
+                            <h4>DevOps: GitLab</h4>
+                            <p>
+                                Created my GitLab account and imported 3 existing GitHub repositories to explore
+                                GitLab's CI/CD capabilities.
+                            </p>
+                        </div> -->
+                        <div class="learning-topic topic-devops">
+                            <h4>DevOps: Final-Round Interview (1)</h4>
+                            <p>
+                                Completed a final-round interview for a DevOps Engineer position at a Fortune 500 tech company.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-fullstack">
+                            <h4>Full Stack: Mobile Nav Prep</h4>
+                            <p>
+                                Wired markup and icons for a future hamburger menu and styled the dropdown panel for small screens.
                             </p>
                         </div>
                     </div>
@@ -140,10 +184,22 @@
                     </article-title>
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
-                            <h4>Zero-Spend Budget</h4>
+                            <h4>AWS: Zero-Spend Budget</h4>
                             <p>
                                 Created my first AWS budget to monitor and control costs, ensuring no unexpected
                                 charges. For temporary reasons, I set the limit to $1.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-devops">
+                            <h4>DevOps: Final-Round Interview (2)</h4>
+                            <p>
+                                Completed a separate, final-round interview for a DevOps Engineer position at a Fortune 500 tech company.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-fullstack">
+                            <h4>Full Stack: Design System</h4>
+                            <p>
+                                Centralized colors with CSS variables and added a modern gradient using color-mix with safe fallbacks.
                             </p>
                         </div>
                     </div>
@@ -155,43 +211,80 @@
                     </article-title>
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
-                            <h4>S3 Bucket with IP Whitelist</h4>
+                            <h4>AWS: S3 Bucket with IP Whitelist</h4>
                             <p>
                                 Created an S3 bucket with all public access blocked and allowed only my IP via a
                                 bucket policy (IP whitelist) for controlled access.
                             </p>
                         </div>
+                        <div class="learning-topic topic-devops">
+                            <h4>DevOps: Cloud Practitioner Review</h4>
+                            <p>
+                                Reviewed AWS Certified Cloud Practitioner study materials and practice exams in preparation for the certification exam.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-fullstack">
+                            <h4>Full Stack: Topic Accents</h4>
+                            <p>
+                                Introduced branded accent borders and color blocks for AWS, DevOps, and Full Stack topics.
+                            </p>
+                        </div>
                     </div>
                 </article>
                 <!-- December 13, 2025 -->
-                <article class="update-card learning-card" data-date="2025-12-13">
+                <article class="update-card learning-card" id="rest-day" data-date="2025-12-13">
                     <article-title class="learning-card-header">
                         <time class="learning-date" datetime="2025-12-13">December 13, 2025</time>
                     </article-title>
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
-                            <h4>AWS Lightsail Hosting</h4>
+                            <h4>AWS: Lightsail Hosting</h4>
                             <p>
                                 Configured my own host using AWS Lightsail to serve content and experiment with
                                 deployment options.
                             </p>
                         </div>
+                        <div class="learning-topic topic-devops">
+                            <h4>DevOps: Rest Day</h4>
+                            <p>
+                                No new updates for DevOps today.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-fullstack">
+                            <h4>Full Stack: Rest Day</h4>
+                            <p>
+                                No new updates for Full Stack today.
+                            </p>
+                        </div>
                     </div>
                 </article>
                 <!-- December 14, 2025 -->
-                <article class="update-card learning-card" data-date="2025-12-14">
+                <article class="update-card learning-card" id="rest-day" data-date="2025-12-14">
                     <article-title class="learning-card-header">
                         <time class="learning-date" datetime="2025-12-14">December 14, 2025</time>
                     </article-title>
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
-                            <h4>Route 53 Configuration</h4>
+                            <h4>AWS: Route 53 Configuration</h4>
                             <p>
                                 Paid the $15 to initialize the domain name transfer from GoDaddy to AWS Route 53 for
                                 better
                                 management and integration with other AWS services.
                             </p>
                         </div>
+                        <div class="learning-topic topic-devops">
+                            <h4>DevOps: Rest Day</h4>
+                            <p>
+                                No new updates for DevOps today.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-fullstack">
+                            <h4>Full Stack: Rest Day</h4>
+                            <p>
+                                No new updates for Full Stack today.
+                            </p>
+                        </div>
+                        
                     </div>
                 </article>
                 <!-- December 15, 2025 -->
@@ -201,10 +294,22 @@
                     </article-title>
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
-                            <h4>Pricing Calculator - EC2 Instance</h4>
+                            <h4>AWS: Pricing Calculator - EC2</h4>
                             <p>
                                 Used the AWS Pricing Calculator to estimate costs for an EC2 instance running Amazon
                                 Linux 2023 (x86) in the US-West-1 (N. California) region, closer to my current location.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-devops">
+                            <h4>DevOps: Cloud Practitioner Review</h4>
+                            <p>
+                                Reviewed AWS Certified Cloud Practitioner study materials and practice exams in preparation for the certification exam.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-fullstack">
+                            <h4>Full Stack: Sticky Header Polish</h4>
+                            <p>
+                                Refined sticky header styling, shadows, and link hover states for a crisp top bar.
                             </p>
                         </div>
                     </div>
@@ -216,10 +321,22 @@
                     </article-title>
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
-                            <h4>EC2 for GoDaddy → AWS Migration</h4>
+                            <h4>AWS: GoDaddy → AWS Migration</h4>
                             <p>
                                 Launched an EC2 instance running Amazon Linux 2023 (x86) to support my GoDaddy to AWS
                                 migration plan.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-devops">
+                            <h4>DevOps: Ansible</h4>
+                            <p>
+                                Review Ansible documentation to better assist me with my current infrastructure as code (IaC) Ansible playbook used for provisioning my EC2 instance.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-fullstack">
+                            <h4>Full Stack: Multi-topic Card</h4>
+                            <p>
+                                Built the learning-card component with a responsive subtopic grid for daily updates.
                             </p>
                         </div>
                     </div>
@@ -231,26 +348,24 @@
                     </article-title>
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
-                            <h4>S3 Configuration</h4>
+                            <h4>AWS: S3 Configuration</h4>
                             <p>
                                 Continued with my current S3 bucket project, copying files from my local dev environment
                                 to the S3 bucket that I configured for this current project.
                             </p>
                         </div>
                         <div class="learning-topic topic-devops">
-                            <h4>DevOps: CI/CD Pipelines</h4>
+                            <h4>DevOps: Ansible EC2 Playbook</h4>
                             <p>
-                                Implemented automated deployment workflows using Jenkins and GitHub Actions.
+                                Updated my existing Ansible playbook to include additional tasks for configuring my EC2 instance upon launch.
                             </p>
                         </div>
                         <div class="learning-topic topic-fullstack">
-                            <h4>Full Stack: Form Validation</h4>
+                            <h4>Full Stack: Card Micro-interactions</h4>
                             <p>
-                                Added client + server validation patterns & sanitized input
-                                payloads.
+                                Added hover lift, balanced spacing, and typography across update cards to improve readability.
                             </p>
                         </div>
-
                     </div>
                 </article>
                 <!-- December 18, 2025 -->
@@ -260,26 +375,23 @@
                     </article-title>
                     <div class="learning-topics">
                         <div class="learning-topic topic-aws">
-                            <h4>AWS: Monitoring Basics</h4>
+                            <h4>AWS: Cloud Practitioner Review</h4>
                             <p>
-                                Set CloudWatch alarms for S3 error rate & reviewed metrics
-                                dashboard.
+                                Reviewed AWS Certified Cloud Practitioner study materials and practice exams in preparation for the certification exam.
                             </p>
                         </div>
                         <div class="learning-topic topic-devops">
-                            <h4>DevOps: CI/CD Pipelines</h4>
+                            <h4>DevOps: GitLab Research</h4>
                             <p>
-                                Implemented automated deployment workflows using Jenkins and GitHub Actions.
+                                Started researching GitLab as a potential alternative to GitHub for CI/CD and industry standard practices using the SDLC model.
                             </p>
                         </div>
                         <div class="learning-topic topic-fullstack">
-                            <h4>Full Stack: Form Validation</h4>
+                            <h4>Full Stack: Templates Scaffold</h4>
                             <p>
-                                Added client + server validation patterns & sanitized input
-                                payloads.
+                                Started templates.html to prototype topic pages and consolidate reusable snippets for faster iteration.
                             </p>
                         </div>
-
                     </div>
                 </article>
                 <!-- December 19, 2025 -->
@@ -291,20 +403,26 @@
                         <div class="learning-topic topic-aws">
                             <h4>AWS: Certified Cloud Practitioner</h4>
                             <p>
-                                Received AWS Certified Cloud Practitioner certification after passing the exam with a
-                                score of 920/1000.
+                                Officially received the AWS Certified Cloud Practitioner certification today after the highly anticipated passing status.
                             </p>
                         </div>
                         <div class="learning-topic topic-devops">
-                            <h4>DevOps: CI/CD Pipelines</h4>
+                            <h4>DevOps: GitLab</h4>
                             <p>
-                                Implemented automated deployment workflows using Jenkins and GitHub Actions.
+                                Created my GitLab account and imported 3 existing GitHub repositories to explore
+                                GitLab's CI/CD capabilities.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-fullstack">
+                            <h4>Full Stack: Content QA</h4>
+                            <p>
+                                Configured cspell.json and cleaned copy; unified headings and descriptions for consistent tone.
                             </p>
                         </div>
                     </div>
                 </article>
                 <!-- December 20, 2025 -->
-                <article class="update-card learning-card" data-date="2025-12-20">
+                <article class="update-card learning-card" id="rest-day" data-date="2025-12-20">
                     <article-title class="learning-card-header">
                         <time class="learning-date" datetime="2025-12-20">December 20, 2025</time>
                     </article-title>
@@ -312,26 +430,26 @@
                         <div class="learning-topic topic-aws">
                             <h4>AWS: Budget Reconfiguration</h4>
                             <p>
-                                Reconfigured my AWS Budget from a $15 limit to a $20 limit to better monitor my
+                                Reconfigured my AWS Budget from a $15 limit to a $25 limit to better monitor my
                                 spending as I continue to explore AWS services.
                             </p>
                         </div>
                         <div class="learning-topic topic-devops">
-                            <h4>DevOps: No Update</h4>
+                            <h4>DevOps: Rest Day</h4>
                             <p>
                                 No new updates for DevOps today.
                             </p>
                         </div>
                         <div class="learning-topic topic-fullstack">
-                            <h4>Full Stack: No Update</h4>
+                            <h4>Full Stack: Rest Day</h4>
                             <p>
-                                No new updates for Full Stack Dev today.
+                                No new updates for Full Stack today.
                             </p>
                         </div>
                     </div>
                 </article>
                 <!-- December 21, 2025 -->
-                <article class="update-card learning-card" data-date="2025-12-21">
+                <article class="update-card learning-card" id="rest-day" data-date="2025-12-21">
                     <article-title class="learning-card-header">
                         <time class="learning-date" datetime="2025-12-21">December 21, 2025</time>
                     </article-title>
@@ -343,15 +461,15 @@
                             </p>
                         </div>
                         <div class="learning-topic topic-devops">
-                            <h4>DevOps: GitLab Research</h4>
+                            <h4>DevOps: Rest Day</h4>
                             <p>
-                                Started researching GitLab as a potential alternative to GitHub for repository hosting and CI/CD.
+                                No new updates for DevOps today.
                             </p>
                         </div>
                         <div class="learning-topic topic-fullstack">
-                            <h4>Full Stack: No Update</h4>
+                            <h4>Full Stack: Rest Day</h4>
                             <p>
-                                No new updates for Full Stack Dev today.
+                                No new updates for Full Stack today.
                             </p>
                         </div>
                     </div>
@@ -369,17 +487,64 @@
                             </p>
                         </div>
                         <div class="learning-topic topic-devops">
-                            <h4>DevOps: GitLab</h4>
+                            <h4>DevOps: Branch Design</h4>
                             <p>
-                                Created my GitLab account and imported 3 existing GitHub repositories to explore
-                                GitLab's CI/CD capabilities.
+                                Designed a version control hierarchy chart for the current version control branch structure.
                             </p>
                         </div>
                         <div class="learning-topic topic-fullstack">
-                            <h4>Full Stack: No Update</h4>
+                            <h4>Full Stack: Performance + Fit</h4>
                             <p>
-                                No new updates for Full Stack Dev today.
+                                Standardized box-sizing, constrained grids with minmax, and fixed horizontal overflow on small screens.
                             </p>
+                        </div>
+                    </div>
+                </article>
+                <!-- December 23, 2025 -->
+                <article class="update-card learning-card" data-date="2025-12-23">
+                    <article-title class="learning-card-header">
+                        <time class="learning-date" datetime="2025-12-23">December 23, 2025</time>
+                    </article-title>
+                    <div class="learning-topics">
+                        <div class="learning-topic topic-aws">
+                            <h4>AWS: CloudFront Invalidation</h4>
+                            <p>
+                                Create a CloudFront Invalidation to refresh cached content after updates to the origin S3 bucket.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-devops">
+                            <h4>DevOps: Branch Implementing</h4>
+                            <p>
+                                Implemented the version control branch structure as per the designed hierarchy chart.
+                            </p>
+                        </div>
+                        <div class="learning-topic topic-fullstack">
+                            <h4>Full Stack: Holiday Cards</h4>
+                            <p>
+                                Added Christmas Eve/Day entries and a festive ID-based styling for the 24th.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+                <!-- December 24, 2025 -->
+                <article id="christmas-eve" class="update-card learning-card" :data-date="2025-12-24">
+                    <article-title class="learning-card-header">
+                        <time class="learning-date" datetime="2025-12-24">December 24, 2025</time>
+                    </article-title>
+                    <div class="learning-topics">
+                        <div>
+                            <h4>Christmas Eve!!</h4>
+                        </div>
+                    </div>
+                </article>
+                <!-- December 25, 2025 -->
+                <article id="christmas-day" class="update-card learning-card" :data-date="2025-12-25">
+                    <article-title class="learning-card-header">
+                        <time class="learning-date" datetime="2025-12-25">December 25, 2025</time>
+                    </article-title>
+                    <div class="learning-topics">
+                        <div>
+                            <h4>Merry Christmas <br><br>& <br><br> Happy Holidays!</h4>
                         </div>
                     </div>
                 </article>
