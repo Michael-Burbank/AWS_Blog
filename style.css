@@ -6,10 +6,14 @@
     --slate-dark: #1f2937;
     --body-bg: #d7d7d7;
 
-    --blue: #0ea5e9;   /* AWS */
-    --green: #10b981;  /* DevOps */
-    --amber: #ffca28;  /* Full Stack */
-    --rose: #f43f5e;   /* Security */
+    --blue: #0ea5e9;
+    /* AWS */
+    --green: #10b981;
+    /* DevOps */
+    --amber: #ffca28;
+    /* Full Stack */
+    --rose: #f43f5e;
+    /* Security */
 
     /* Buttons */
     --btn-bg: var(--slate);
@@ -81,7 +85,8 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    position: relative; /* anchor for absolute dropdown */
+    position: relative;
+    /* anchor for absolute dropdown */
 }
 
 .logo {
@@ -91,7 +96,7 @@ header {
     margin: 0;
 }
 
-.logo a{
+.logo a {
     text-decoration: none;
     color: var(--white);
 }
@@ -117,7 +122,8 @@ header {
 }
 
 .menu-toggle {
-    display: none; /* shown below 768px */
+    display: none;
+    /* shown below 768px */
     background: transparent;
     border: none;
     color: var(--white);
@@ -127,9 +133,21 @@ header {
 
 /* Link hovers (desktop) */
 /* Order in HTML: AWS, DevOps, Full Stack, Security */
-.nav-links li:first-child a:hover { color: var(--blue); }     /* AWS */
-.nav-links li:nth-child(2) a:hover { color: var(--green); }   /* DevOps -> green */
-.nav-links li:nth-child(3) a:hover { color: var(--amber); }   /* Full Stack -> amber */
+.nav-links li:first-child a:hover {
+    color: var(--blue);
+}
+
+/* AWS */
+.nav-links li:nth-child(2) a:hover {
+    color: var(--green);
+}
+
+/* DevOps -> green */
+.nav-links li:nth-child(3) a:hover {
+    color: var(--amber);
+}
+
+/* Full Stack -> amber */
 /* .nav-links li:last-child a:hover { color: var(--rose); }      Security */
 
 .nav-links a:focus-visible {
@@ -145,9 +163,14 @@ header {
     text-align: center;
 
     /* professional: muted brand gradient + strong navy overlay for contrast */
-    background:
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.94), rgba(15, 23, 42, 0.85)),
-    linear-gradient(135deg, var(--blue-muted) 0%, var(--green-muted) 33%, var(--amber-muted) 66%, var(--rose-muted) 100%);
+    background: linear-gradient(to bottom,
+            rgba(15, 23, 42, 0.94),
+            rgba(15, 23, 42, 0.85)),
+        linear-gradient(135deg,
+            var(--blue-muted) 0%,
+            var(--green-muted) 33%,
+            var(--amber-muted) 66%,
+            var(--rose-muted) 100%);
 }
 
 .hero-content h2 {
@@ -189,7 +212,8 @@ header {
 /* Fallback for browsers without color-mix */
 @supports not (color: color-mix(in srgb, red, black)) {
     #hero .btn:hover {
-        background: #526072; /* lighter slate approximation */
+        background: #526072;
+        /* lighter slate approximation */
     }
 }
 
@@ -262,10 +286,23 @@ header {
 }
 
 /* Topic color blocks */
-.aws-topic-card { background: var(--blue); }
-.dev_ops-topic-card { background: var(--green); }   /* DevOps -> green */
-.fullstack-topic-card { background: var(--amber); } /* Full Stack -> amber */
-.security-topic-card { background: var(--rose); }
+.aws-topic-card {
+    background: var(--blue);
+}
+
+.dev_ops-topic-card {
+    background: var(--green);
+}
+
+/* DevOps -> green */
+.fullstack-topic-card {
+    background: var(--amber);
+}
+
+/* Full Stack -> amber */
+.security-topic-card {
+    background: var(--rose);
+}
 
 .update-card {
     background: var(--slate-dark);
@@ -341,7 +378,7 @@ header {
     transition: background 0.3s, transform 0.3s;
 }
 
-#rest-day{
+#rest-day {
     background: var(--rest-day-bg);
 }
 
@@ -350,7 +387,7 @@ header {
     background-color: rgb(97, 19, 19);
 }
 
-#christmas-eve.update-card.learning-card h4{
+#christmas-eve.update-card.learning-card h4 {
     text-align: center;
     font-size: 1.5rem;
 }
@@ -359,10 +396,11 @@ header {
     background-color: rgb(97, 19, 19);
 }
 
-#christmas-day.update-card.learning-card h4{
+#christmas-day.update-card.learning-card h4 {
     text-align: center;
     font-size: 1.5rem;
 }
+
 /* ---------------CHRISTMAS-------------- */
 
 .learning-topic:hover {
@@ -384,13 +422,28 @@ header {
 }
 
 /* Color accents mapped to existing palette */
-.topic-aws { border-left: 6px solid var(--blue); }
-.topic-devops { border-left: 6px solid var(--green); }      /* DevOps -> green */
-.topic-fullstack { border-left: 6px solid var(--amber); }   /* Full Stack -> amber */
-.topic-security { border-left: 6px solid var(--rose); }
+.topic-aws {
+    border-left: 6px solid var(--blue);
+}
+
+.topic-devops {
+    border-left: 6px solid var(--green);
+}
+
+/* DevOps -> green */
+.topic-fullstack {
+    border-left: 6px solid var(--amber);
+}
+
+/* Full Stack -> amber */
+.topic-security {
+    border-left: 6px solid var(--rose);
+}
 
 /* Topic page */
-.topic-page { padding: 3rem 2rem; }
+.topic-page {
+    padding: 3rem 2rem;
+}
 
 .topic-header {
     text-align: center;
@@ -412,20 +465,128 @@ header {
 }
 
 /* Footer */
-footer {
+.site-footer {
+    padding: 24px 16px;
+    border-top: 1px solid var(--border-subtle, #e2e8f0);
     text-align: center;
-    padding: 4rem;
-    background: var(--navy);
-    color: var(--white);
+    color: var(--text-muted, #475569);
+    font-size: 0.95rem;
+    background-color: var(--navy);
+
+}
+
+/* Footer contact icons */
+.site-footer .contact-links {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.contact-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #e5e7eb;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-link i {
+    font-size: 1.25rem;
+}
+
+.contact-link:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.contact-link.linkedin:hover {
+    color: #0a66c2;
+    /* LinkedIn brand */
+}
+
+.contact-link.github:hover {
+    color: #ffffff;
+    /* GitHub on dark footer */
+}
+
+/* Accessibility helper */
+.visually-hidden {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+}
+
+@media (prefers-color-scheme: dark) {
+    .site-footer {
+        border-top-color: #1f2937;
+        color: #94a3b8;
+    }
+}
+
+.site-footer .powered-by {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.site-footer .kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+    color: var(--text-tertiary, #64748b);
+}
+
+@media (prefers-color-scheme: dark) {
+    .site-footer .kicker {
+        color: #7c8ea3;
+    }
+}
+
+.site-footer .sep {
+    opacity: 0.5;
+}
+
+.site-footer a {
+    color: var(--link, #2563eb);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+    .site-footer a {
+        color: #38bdf8;
+    }
+}
+
+.site-footer .ri-cloud-line {
     font-size: 1rem;
-    margin-top: 2rem;
+    opacity: 0.7;
+    vertical-align: text-bottom;
 }
 
 /* ====== Responsive ====== */
 
 /* Desktop and up */
 @media (min-width: 769px) {
-    .menu-toggle { display: none; }
+    .menu-toggle {
+        display: none;
+    }
 
     .nav-links {
         display: flex;
@@ -444,10 +605,18 @@ footer {
 
 /* Tablet/phone */
 @media (max-width: 768px) {
-    h1.logo { margin: auto; }
-    .menu-toggle { display: block; }
+    h1.logo {
+        margin: auto;
+    }
 
-    .topics, .updates { padding: 2rem 1rem; }
+    .menu-toggle {
+        display: block;
+    }
+
+    .topics,
+    .updates {
+        padding: 2rem 1rem;
+    }
 
     /* Dropdown panel (hidden by default) */
     .nav-links {
@@ -467,7 +636,9 @@ footer {
     }
 
     /* Shown when JS toggles this class */
-    .nav-links.nav-links-open { display: block; }
+    .nav-links.nav-links-open {
+        display: block;
+    }
 
     /* Stacked items */
     .nav-links li {
@@ -492,24 +663,45 @@ footer {
     }
 
     /* AWS */
-    .nav-links li:first-child a:hover { color: var(--white); }
-    .nav-links .aws-li:hover { background: var(--blue); }
+    .nav-links li:first-child a:hover {
+        color: var(--white);
+    }
+
+    .nav-links .aws-li:hover {
+        background: var(--blue);
+    }
 
     /* DevOps -> green */
-    .nav-links li:nth-child(2) a:hover { color: var(--white); }
-    .nav-links .dev_ops-li:hover { background: var(--green); }
+    .nav-links li:nth-child(2) a:hover {
+        color: var(--white);
+    }
+
+    .nav-links .dev_ops-li:hover {
+        background: var(--green);
+    }
 
     /* Full Stack -> amber */
-    .nav-links li:nth-child(3) a:hover { color: var(--white); }
-    .nav-links .fullstack-li:hover { background: var(--amber); }
+    .nav-links li:nth-child(3) a:hover {
+        color: var(--white);
+    }
+
+    .nav-links .fullstack-li:hover {
+        background: var(--amber);
+    }
 
     /* Security */
-    .nav-links li:last-child a:hover { color: var(--white); }
-    .nav-links .security-li:hover { background: var(--rose); }
+    .nav-links li:last-child a:hover {
+        color: var(--white);
+    }
+
+    .nav-links .security-li:hover {
+        background: var(--rose);
+    }
 }
 
 /* Medium screens tweak */
 @media (max-width: 1200px) {
+
     .topic-grid,
     .update-grid {
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -518,11 +710,28 @@ footer {
 
 /* Small phones */
 @media (max-width: 480px) {
-    .topic-header { padding: 2rem 1rem; }
-    .topic-content { grid-template-columns: 1fr; padding: 1rem; }
-    .hero-content h2 { font-size: 1.5rem; }
-    .topics h2, .updates h2 { font-size: 1.2rem; }
-    .topic-card, .update-card { padding: 1rem; }
+    .topic-header {
+        padding: 2rem 1rem;
+    }
+
+    .topic-content {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .hero-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .topics h2,
+    .updates h2 {
+        font-size: 1.2rem;
+    }
+
+    .topic-card,
+    .update-card {
+        padding: 1rem;
+    }
 }
 
 /* ====== Rest day & badges ====== */
@@ -547,12 +756,11 @@ footer {
     font-style: italic;
     color: rgba(255, 255, 255, 0.9);
     text-align: center;
-
 }
 
 .rest-day-body {
     margin: 0.5rem 0 0;
-    font-size: 0.90rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.8);
     text-align: center;
 }
@@ -574,7 +782,10 @@ footer {
 }
 
 .badge-missed {
-    background: #fef2f2; /* rose-50 */
-    color: #991b1b;      /* rose-900 */
-    border-color: #fecaca; /* rose-200 */
+    background: #fef2f2;
+    /* rose-50 */
+    color: #991b1b;
+    /* rose-900 */
+    border-color: #fecaca;
+    /* rose-200 */
 }
