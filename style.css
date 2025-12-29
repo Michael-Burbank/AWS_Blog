@@ -4,7 +4,7 @@
     --navy: #0f172a;
     --slate: #374151;
     --slate-dark: #1f2937;
-    --rest-day-bg: #152035;
+    --body-bg: #d7d7d7;
 
     --blue: #0ea5e9;   /* AWS */
     --green: #10b981;  /* DevOps */
@@ -25,7 +25,9 @@
     /* Rest day background (neutral navy blend) */
     --rest-day-bg-solid: color-mix(in srgb, var(--navy) 85%, var(--slate) 15%);
     /* Slight transparency for a softer look */
-    --rest-day-bg: color-mix(in srgb, var(--rest-day-bg-solid) 85%, transparent 15%);
+    /* --rest-day-bg: color-mix(in srgb, var(--rest-day-bg-solid) 85%, transparent 15%); */
+    /* --rest-day-bg: rgb(36, 9, 44); */
+    --rest-day-bg: rgba(36, 9, 44, 0.776);
 }
 
 /* Fallback for older browsers without color-mix */
@@ -45,6 +47,7 @@
 html {
     box-sizing: border-box;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 *,
@@ -56,7 +59,7 @@ html {
 body {
     font-family: "Poppins", sans-serif;
     margin: 0;
-    background-color: var(--white);
+    background-color: var(--body-bg);
     color: var(--navy);
     line-height: 1.6;
     max-width: 100%;

@@ -95,6 +95,24 @@ if (btn && nav) {
     onResize();
 })();
 
+// Smooth scroll to updates section on progress link click
+document.addEventListener('DOMContentLoaded', () => {
+    const progressLink = document.querySelector('a.btn[href="#updates"]');
+    if (!progressLink) return;
+
+    progressLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.getElementById('updates');
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        // Optional: ensure no hash remains if present
+        if (location.hash) {
+            history.replaceState(null, '', location.pathname + location.search);
+        }
+    });
+});
+
 // Reorder update cards so newest appear first (earliest at the back)
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.update-grid');
