@@ -515,6 +515,10 @@ header {
     color: #ffffff;
     /* GitHub on dark footer */
 }
+.contact-link.gitlab:hover {
+    color: #fc6d26;
+    /* GitLab brand */
+}
 
 /* Accessibility helper */
 .visually-hidden {
