@@ -1,9 +1,19 @@
 # General
+docs/
+*.vscode/
 .DS_Store
 __MACOSX/
 .AppleDouble
 .LSOverride
 Icon[]
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+ansible-README.md
+.ansible/.lock
+*.ansible/
 
 # Thumbnails
 ._*
@@ -19,3 +29,19 @@ Icon[]
 .vscode/settings.json
 cspell.json
 templates.html
+
+# Secrets
+*.pem
+*.key
+.venv/
+env/
+.env.local
+.env.*.local
+venv/
+ENV/
+aws-credentials.json
+aws-exports.js
+
+inventory.ini
+AWS-Ansible.code-workspace
+devices.json

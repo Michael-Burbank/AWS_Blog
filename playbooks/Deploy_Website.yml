@@ -1,0 +1,36 @@
+# Playbook to deploy a website to the web server(s) listed in inventory.ini
+- name: Deploy Website
+  # Targets the host group 'web' defined in inventory.ini
+  hosts: web
+  # Sudo privileges for web server configuration
+  become: true
+
+  # Variables - define before tasks
+  vars:
+    # Path on the web server where website files will be deployed
+    website_source_path: "/var/www/myapp"
+
+  tasks:
+    - name: Deploy entire website directory
+      ansible.builtin.copy:
+        # Copies files from local machine to web server (control node to managed node)
+        # Control node path (local machine running Ansible)
+        # The trailing slash means "copy contents of website/"
+        src: "../website/"
+
+        # Destination path on the web server (managed node)
+        dest: "{{ website_source_path }}/"
+
+        # AL (Amazon Linux) uses 'nginx' user/group for Nginx processes
+        owner: nginx
+        group: nginx
+        mode: "0644"
+      # Trigger nginx reload after file change
+      notify: Reload nginx
+
+  # Handlers are triggered by 'notify' directives in tasks
+  handlers:
+    - name: Reload nginx
+      ansible.builtin.systemd:
+        name: nginx
+        state: reloaded

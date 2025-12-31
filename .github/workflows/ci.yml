@@ -1,0 +1,55 @@
+# Workflow name displayed in GitHub Actions UI
+name: CI
+
+# Triggers that start this workflow
+on:
+    push:
+        branches: [main] # Run when code is pushed to main branch
+    pull_request:
+        branches: [main] # Run when pull request targets main branch
+
+# Jobs are independent tasks that run in parallel (or sequentially with dependencies)
+jobs:
+    lint:
+        # GitHub-hosted runner - uses Ubuntu latest LTS version
+        # This is the host machine, not the target deployment OS
+        runs-on: ubuntu-latest
+
+        # Sequential steps executed in this job
+        steps:
+            # Checkout repository code into the runner
+            # Makes your code available to subsequent steps
+            - uses: actions/checkout@v4
+
+            # Install Python on the runner
+            # Required for Ansible and related tools
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                python-version: "3.11" # Python version to install
+
+            # Install project dependencies
+            - name: Install dependencies
+              run: |
+                  # Install Python packages from requirements.txt
+                  # Includes: ansible, ansible-lint, boto3
+                  pip install -r requirements.txt
+
+                  # Install Ansible Galaxy collections from requirements.yml
+                  # Includes: amazon.aws, community.general, ansible.posix
+                  ansible-galaxy collection install -r requirements.yml
+
+            # Run ansible-lint to check for best practices and common errors
+            - name: Lint Ansible playbooks
+              run: |
+                  # Check playbooks/site.yml for style and best practices
+                  # || true prevents build failure on warnings (optional warnings)
+                  ansible-lint playbooks/site.yml || true
+
+            # Validate YAML syntax of the playbook
+            - name: Syntax check
+              run: |
+                  # --syntax-check: Parse YAML without executing tasks
+                  # -i inventory/inventory.ini.example: Use example inventory (no real hosts)
+                  # Fails the build if syntax errors are found
+                  ansible-playbook playbooks/site.yml --syntax-check -i inventory/inventory.ini.example

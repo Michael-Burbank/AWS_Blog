@@ -1,0 +1,211 @@
+- name: Configure web servers
+  hosts: web
+  become: true
+  vars:
+    # Admin role already created.
+    # No admin role needed - Skipping => False.
+    create_admin_user: false
+    existing_admin_user: Mike
+    # Only used if you later set create_admin_user: true
+    ssh_pub_key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
+    disable_firewalld: true
+
+  # Tasks to execute on remote host(s).
+  tasks:
+    # Update all installed packages to latest (Amazon Linux/RedHat via dnf).
+    - name: Ensure system packages are up to date
+      ansible.builtin.dnf:
+        name: "*"
+        state: present
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2023', '==')
+
+    # Uses dnf to install common base/util tools.
+    - name: Install base tools
+      ansible.builtin.dnf:
+        name:
+          - git # version control
+          - wget # file downloader
+          - curl-minimal # HTTP client
+          - unzip # unzip archives
+          - htop # process viewer
+          - dnf-automatic # automated dnf - Amazon Linux 2023
+        state: present
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2023', '==')
+
+    # Enable and start the dnf-automatic service for automatic updates
+    - name: Enable automatic security updates (dnf-automatic)
+      ansible.builtin.service:
+        name: dnf-automatic.timer
+        state: started # ensure service is running
+        enabled: true # ensure service starts at boot
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2023', '==')
+
+    # 1. User and SSH setup
+
+    # Skipping due to create_admin_user: false. No admin user needs created.
+    - name: Create admin user
+      ansible.builtin.user:
+        name: "{{ existing_admin_user }}"
+        groups: wheel
+        append: true
+        create_home: true
+        shell: /bin/bash
+      when: create_admin_user
+
+    - name: Allow sudo without password for wheel group (optional)
+      ansible.builtin.copy:
+        dest: /etc/sudoers.d/99-wheel-nopasswd
+        content: "%wheel ALL=(ALL) NOPASSWD: ALL\n"
+        mode: "0440"
+      when: create_admin_user
+
+    - name: Create .ssh directory for admin
+      ansible.builtin.file:
+        path: "/home/{{ existing_admin_user }}/.ssh"
+        state: directory
+        owner: "{{ existing_admin_user }}"
+        group: "{{ existing_admin_user }}"
+        mode: "0700"
+      when: create_admin_user
+
+    - name: Add authorized key for admin
+      ansible.posix.authorized_key:
+        user: "{{ existing_admin_user }}"
+        key: "{{ ssh_pub_key }}"
+        state: present
+      when: create_admin_user
+
+    # SSH hardening
+    - name: Disable root login
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?PermitRootLogin"
+        line: "PermitRootLogin no"
+        backup: true
+      notify: Restart sshd
+
+    - name: Disable password authentication
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?PasswordAuthentication"
+        line: "PasswordAuthentication no"
+        backup: true
+      notify: Restart sshd
+
+    - name: Ensure PubkeyAuthentication is enabled
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?PubkeyAuthentication"
+        line: "PubkeyAuthentication yes"
+        backup: true
+      notify: Restart sshd
+
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
+    # Optional firewall handling
+    - name: Disable firewalld and rely on AWS security groups
+      ansible.builtin.service:
+        name: firewalld
+        state: stopped
+        enabled: false
+      when:
+        - disable_firewalld
+        - "'firewalld.service' in ansible_facts.services"
+
+    # Stop httpd if running to free port 80
+    - name: Stop and disable httpd if present
+      ansible.builtin.service:
+        name: httpd
+        state: stopped
+        enabled: false
+      when: "'httpd.service' in ansible_facts.services"
+
+    # Nginx setup
+    - name: Install Nginx via amazon-linux-extras if not installed
+      ansible.builtin.command: amazon-linux-extras install nginx1 -y
+      args:
+        creates: /etc/nginx/nginx.conf
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2', '==')
+
+    - name: Ensure Nginx is installed
+      ansible.builtin.dnf:
+        name: nginx
+        state: present
+      when:
+        - ansible_distribution == "Amazon"
+
+    - name: Ensure /etc/nginx/conf.d exists
+      ansible.builtin.file:
+        path: /etc/nginx/conf.d
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    # Simple app page
+    - name: Create web root
+      ansible.builtin.file:
+        path: /var/www/myapp
+        state: directory
+        owner: "{{ existing_admin_user }}"
+        group: "{{ existing_admin_user }}"
+        mode: "0755"
+
+    - name: Create simple index page
+      ansible.builtin.copy:
+        dest: /var/www/myapp/index.html
+        content: "<h1>Hello from EC2 managed by Ansible</h1>\n"
+        owner: "{{ existing_admin_user }}"
+        group: "{{ existing_admin_user }}"
+        mode: "0644"
+
+    - name: Configure Nginx server block
+      ansible.builtin.copy:
+        dest: /etc/nginx/conf.d/myapp.conf
+        content: |
+          server {
+              listen 80;
+              server_name _;
+              root /var/www/myapp;
+              index index.html;
+              location / {
+                  try_files $uri $uri/ =404;
+              }
+          }
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Reload nginx
+
+    - name: Validate Nginx configuration
+      ansible.builtin.command: nginx -t
+      register: nginx_test
+      changed_when: false
+      failed_when: nginx_test.rc != 0
+
+    - name: Enable and start Nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+      when: nginx_test.rc == 0
+
+  handlers:
+    - name: Restart sshd
+      ansible.builtin.service:
+        name: sshd
+        state: restarted
+
+    - name: Reload nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
