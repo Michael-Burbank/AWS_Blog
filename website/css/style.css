@@ -392,6 +392,16 @@ header {
     font-size: 1.5rem;
 }
 
+.Christmas-Eve h4 {
+    position: relative;
+    top: 70%;
+}
+
+.Christmas-Day h4{
+    position: relative;
+    top: 20%;
+}
+
 #christmas-day.update-card.learning-card {
     background-color: rgb(97, 19, 19);
 }
