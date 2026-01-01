@@ -1,134 +1,14 @@
-- name: Configure web servers
+- name: Configure TLS with Certbot for Nginx
   hosts: web
   become: true
   vars:
-    # Admin role already created.
-    # No admin role needed - Skipping => False.
-    create_admin_user: false
-    existing_admin_user: Mike
-    # Only used if you later set create_admin_user: true
-    ssh_pub_key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
-    disable_firewalld: true
+    domain_name: michael-burbank.com
+    certbot_email: mike.w.burbank@gmail.com
+    web_root: /var/www/myapp
 
-  # Tasks to execute on remote host(s).
   tasks:
-    # Update all installed packages to latest (Amazon Linux/RedHat via dnf).
-    - name: Ensure system packages are up to date
-      ansible.builtin.dnf:
-        name: "*"
-        state: present
-      when:
-        - ansible_distribution == "Amazon"
-        - ansible_distribution_major_version is version('2023', '==')
-
-    # Uses dnf to install common base/util tools.
-    - name: Install base tools
-      ansible.builtin.dnf:
-        name:
-          - git # version control
-          - wget # file downloader
-          - curl-minimal # HTTP client
-          - unzip # unzip archives
-          - htop # process viewer
-          - dnf-automatic # automated dnf - Amazon Linux 2023
-        state: present
-      when:
-        - ansible_distribution == "Amazon"
-        - ansible_distribution_major_version is version('2023', '==')
-
-    # Enable and start the dnf-automatic service for automatic updates
-    - name: Enable automatic security updates (dnf-automatic)
-      ansible.builtin.service:
-        name: dnf-automatic.timer
-        state: started # ensure service is running
-        enabled: true # ensure service starts at boot
-      when:
-        - ansible_distribution == "Amazon"
-        - ansible_distribution_major_version is version('2023', '==')
-
-    # 1. User and SSH setup
-
-    # Skipping due to create_admin_user: false. No admin user needs created.
-    - name: Create admin user
-      ansible.builtin.user:
-        name: "{{ existing_admin_user }}"
-        groups: wheel
-        append: true
-        create_home: true
-        shell: /bin/bash
-      when: create_admin_user
-
-    - name: Allow sudo without password for wheel group (optional)
-      ansible.builtin.copy:
-        dest: /etc/sudoers.d/99-wheel-nopasswd
-        content: "%wheel ALL=(ALL) NOPASSWD: ALL\n"
-        mode: "0440"
-      when: create_admin_user
-
-    - name: Create .ssh directory for admin
-      ansible.builtin.file:
-        path: "/home/{{ existing_admin_user }}/.ssh"
-        state: directory
-        owner: "{{ existing_admin_user }}"
-        group: "{{ existing_admin_user }}"
-        mode: "0700"
-      when: create_admin_user
-
-    - name: Add authorized key for admin
-      ansible.posix.authorized_key:
-        user: "{{ existing_admin_user }}"
-        key: "{{ ssh_pub_key }}"
-        state: present
-      when: create_admin_user
-
-    # SSH hardening
-    - name: Disable root login
-      ansible.builtin.lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: "^#?PermitRootLogin"
-        line: "PermitRootLogin no"
-        backup: true
-      notify: Restart sshd
-
-    - name: Disable password authentication
-      ansible.builtin.lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: "^#?PasswordAuthentication"
-        line: "PasswordAuthentication no"
-        backup: true
-      notify: Restart sshd
-
-    - name: Ensure PubkeyAuthentication is enabled
-      ansible.builtin.lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: "^#?PubkeyAuthentication"
-        line: "PubkeyAuthentication yes"
-        backup: true
-      notify: Restart sshd
-
-    - name: Gather service facts
-      ansible.builtin.service_facts:
-
-    # Optional firewall handling
-    - name: Disable firewalld and rely on AWS security groups
-      ansible.builtin.service:
-        name: firewalld
-        state: stopped
-        enabled: false
-      when:
-        - disable_firewalld
-        - "'firewalld.service' in ansible_facts.services"
-
-    # Stop httpd if running to free port 80
-    - name: Stop and disable httpd if present
-      ansible.builtin.service:
-        name: httpd
-        state: stopped
-        enabled: false
-      when: "'httpd.service' in ansible_facts.services"
-
-    # Nginx setup
-    - name: Install Nginx via amazon-linux-extras if not installed
+    # Nginx (required for certbot --nginx)
+    - name: Install Nginx on Amazon Linux 2
       ansible.builtin.command: amazon-linux-extras install nginx1 -y
       args:
         creates: /etc/nginx/nginx.conf
@@ -136,12 +16,13 @@
         - ansible_distribution == "Amazon"
         - ansible_distribution_major_version is version('2', '==')
 
-    - name: Ensure Nginx is installed
+    - name: Install Nginx on Amazon Linux 2023
       ansible.builtin.dnf:
         name: nginx
         state: present
       when:
         - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2023', '==')
 
     - name: Ensure /etc/nginx/conf.d exists
       ansible.builtin.file:
@@ -151,32 +32,29 @@
         group: root
         mode: "0755"
 
-    # Simple app page
-    - name: Create web root
+    - name: Ensure web root exists
       ansible.builtin.file:
-        path: /var/www/myapp
+        path: "{{ web_root }}"
         state: directory
-        owner: "{{ existing_admin_user }}"
-        group: "{{ existing_admin_user }}"
+        owner: root
+        group: root
         mode: "0755"
 
-    - name: Create simple index page
-      ansible.builtin.copy:
-        dest: /var/www/myapp/index.html
-        content: "<h1>Hello from EC2 managed by Ansible</h1>\n"
-        owner: "{{ existing_admin_user }}"
-        group: "{{ existing_admin_user }}"
-        mode: "0644"
-
-    - name: Configure Nginx server block
+    - name: Configure Nginx server block for domain (HTTP)
       ansible.builtin.copy:
         dest: /etc/nginx/conf.d/myapp.conf
         content: |
           server {
               listen 80;
-              server_name _;
-              root /var/www/myapp;
+              server_name {{ domain_name }} www.{{ domain_name }};
+              root {{ web_root }};
               index index.html;
+
+              # Optional: ensure ACME HTTP-01 challenge isservable
+              location ^~ /.well-known/acme-challenge/ {
+                  default_type "text/plain";
+              }
+
               location / {
                   try_files $uri $uri/ =404;
               }
@@ -199,12 +77,115 @@
         enabled: true
       when: nginx_test.rc == 0
 
-  handlers:
-    - name: Restart sshd
-      ansible.builtin.service:
-        name: sshd
-        state: restarted
+    # Certbot install
+    - name: Enable EPEL on Amazon Linux 2 (for snapd)
+      ansible.builtin.command: amazon-linux-extras install epel -y
+      args:
+        creates: /etc/yum.repos.d/epel.repo
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2', '==')
 
+    - name: Install snapd on Amazon Linux 2
+      ansible.builtin.package:
+        name: snapd
+        state: present
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2', '==')
+
+    - name: Enable and start snapd.socket (AL2)
+      ansible.builtin.systemd:
+        name: snapd.socket
+        state: started
+        enabled: true
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2', '==')
+
+    - name: Ensure /snap symlink exists (AL2)
+      ansible.builtin.file:
+        src: /var/lib/snapd/snap
+        path: /snap
+        state: link
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2', '==')
+
+    - name: Install core and certbot via snap (AL2)
+      ansible.builtin.command: "{{ item }}"
+      loop:
+        - snap install core
+        - snap install --classic certbot
+      args:
+        creates: /snap/bin/certbot
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2', '==')
+
+    - name: Symlink certbot to /usr/bin (AL2)
+      ansible.builtin.file:
+        src: /snap/bin/certbot
+        path: /usr/bin/certbot
+        state: link
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2', '==')
+
+    - name: Install EPEL release (AL2023)
+      ansible.builtin.dnf:
+        name: epel-release
+        state: present
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2023', '==')
+
+    - name: Install certbot and nginx plugin (AL2023)
+      ansible.builtin.dnf:
+        name:
+          - certbot
+          - python3-certbot-nginx
+        state: present
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2023', '==')
+
+    # Obtain certificate (requires DNS A record to this EC2 and ports 80/443 open)
+    - name: Obtain Let's Encrypt certificate via nginx plugin
+      ansible.builtin.command: >
+        certbot --nginx -n --agree-tos
+        -m {{ certbot_email }}
+        -d {{ domain_name }} -d www.{{ domain_name }}
+      args:
+        creates: "/etc/letsencrypt/live/{{ domain_name }}/fullchain.pem"
+      notify: Reload nginx
+
+    # Auto-renew
+    - name: Enable certbot auto-renew timer (snap) on AL2
+      ansible.builtin.systemd:
+        name: snap.certbot.renew.timer
+        state: started
+        enabled: true
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2', '==')
+
+    - name: Install cron for certbot renew (AL2023)
+      ansible.builtin.copy:
+        dest: /etc/cron.d/certbot-renew
+        content: |
+          # Renew certs daily and reload nginx if changed
+          SHELL=/bin/bash
+          PATH=/sbin:/bin:/usr/sbin:/usr/bin
+          30 2 * * * root certbot renew --quiet --deploy-hook "systemctl reload nginx"
+        owner: root
+        group: root
+        mode: "0644"
+      when:
+        - ansible_distribution == "Amazon"
+        - ansible_distribution_major_version is version('2023', '==')
+
+  handlers:
     - name: Reload nginx
       ansible.builtin.service:
         name: nginx
