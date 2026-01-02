@@ -1,12 +1,21 @@
-# AWS Blog – Static Website Project
+# Cloud DevOps Learning Journal – Static Site on EC2 (Amazon Linux 2023)
 
-This repository contains a static website for an AWS-focused blog, built with HTML, CSS, and JavaScript. It includes a local development workflow and an Ansible-based deployment to AWS EC2. For detailed Ansible usage and commands, see [ansible-README.md](ansible-README.md).
+This repository contains a static website for a daily learning journal covering AWS, DevOps, and Full-Stack development. It includes a local development workflow and Ansible-based deployment to AWS EC2 (Amazon Linux 2023). For detailed Ansible usage and commands, see [ansible-README.md](ansible-README.md).
 
 ## Features
 
 - Simple, responsive static pages (HTML/CSS/JS).
 - Ready-to-deploy content under [website/](website/).
-- Ansible playbooks to bootstrap an EC2 host and deploy the site.
+- Daily update workflow (GitOps): content changes are deployed to EC2 via pipeline.
+- Ansible playbooks to bootstrap an EC2 host (Amazon Linux 2023) and deploy the site with NGINX.
+- CloudFront CDN in front of EC2 for global, low-latency delivery.
+
+## Scope
+
+- AWS: EC2 (Amazon Linux 2023), IAM roles/instance profiles, Security Groups.
+- CDN: CloudFront distribution with EC2 (NGINX) origin; ACM-managed TLS certs.
+- DevOps: Infrastructure as Code (Ansible), CI/CD, GitOps mirroring.
+- Full-Stack: HTML/CSS/JS site content and layout.
 
 ## Project Structure
 
@@ -26,6 +35,7 @@ This repository contains a static website for an AWS-focused blog, built with HT
 - macOS/Linux with Git, Python 3.
 - Optional: Ansible installed (`pip install ansible`).
 - For EC2 deployments: AWS credentials configured (see [ansible-README.md](ansible-README.md)).
+- Target OS: Amazon Linux 2023 on EC2.
 
 ## Local Development
 
@@ -45,12 +55,19 @@ python3 -m http.server 8080
 
 ## Deployment (Overview)
 
-Deployment is managed via Ansible to an AWS EC2 instance.
+Deployment is managed via Ansible to an AWS EC2 instance (Amazon Linux 2023) with NGINX serving static content. CloudFront fronts the EC2 origin for global caching, TLS termination, and acceleration.
 
-- Bootstrap server (install and configure Nginx): see [playbooks/site.yml](playbooks/site.yml).
+- Bootstrap server (install and configure NGINX): see [playbooks/site.yml](playbooks/site.yml).
 - Deploy website content: see [playbooks/Deploy_Website.yml](playbooks/Deploy_Website.yml).
 - Inventory options:
   - Static: [inventory.ini](inventory.ini)
+
+### CDN (CloudFront)
+
+- Configure CloudFront distribution with EC2/NGINX as the origin.
+- Attach ACM certificate for HTTPS; enable HTTP/2 and modern TLS.
+- Define cache behaviors for static assets; set default root object.
+- Post-deploy: issue invalidations (e.g., `/*`) to refresh cached content after releases.
 
 For exact commands (`--syntax-check`, `--check`, group names, and credentials), use [ansible-README.md](ansible-README.md).
 
