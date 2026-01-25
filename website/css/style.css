@@ -1,3 +1,4 @@
+/* === Root Variables === */
 :root {
     /* Base palette */
     --white: #ffffff;
@@ -57,6 +58,15 @@ html {
 *,
 *::before,
 *::after {
+
+    /* Vertically center .Christmas-Day h4 */
+    .Christmas-Day {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 300px;
+    }
     box-sizing: inherit;
 }
 
@@ -382,6 +392,10 @@ header {
     background: var(--rest-day-bg);
 }
 
+.day {
+    color: #ffb300;
+}
+
 /* ---------------CHRISTMAS-------------- */
 #christmas-eve.update-card.learning-card {
     background-color: rgb(97, 19, 19);
@@ -392,14 +406,21 @@ header {
     font-size: 1.5rem;
 }
 
+.Christmas-Eve {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
 .Christmas-Eve h4 {
-    position: relative;
-    top: 70%;
+    position: static;
+    margin: 0;
 }
 
 .Christmas-Day h4{
-    position: relative;
-    top: 20%;
+    position: static;
+    margin: 0;
 }
 
 #christmas-day.update-card.learning-card {
