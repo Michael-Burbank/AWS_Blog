@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-INVENTORY=${1:-inventory.ini}
+  
 
 echo "Running health checks..."
 
