@@ -469,6 +469,88 @@ header {
 
 /* ---------------CHRISTMAS-------------- */
 
+/* ---------------VALENTINE'S DAY-------------- */
+.learning-card[data-date="2026-02-14"] {
+    background:
+        linear-gradient(to bottom,
+            color-mix(in srgb, var(--rose) 35%, var(--navy) 65%),
+            color-mix(in srgb, var(--rose) 70%, var(--navy) 30%));
+    border: 1px solid color-mix(in srgb, var(--rose) 60%, white 40%);
+}
+
+.learning-card[data-date="2026-02-14"] .learning-card-header {
+    border-bottom-color: color-mix(in srgb, var(--rose) 50%, white 50%);
+}
+
+.learning-card[data-date="2026-02-14"] .learning-date {
+    background: linear-gradient(135deg,
+            color-mix(in srgb, var(--rose) 35%, white 65%),
+            color-mix(in srgb, var(--rose) 70%, white 30%));
+    color: #3b0a1a;
+    box-shadow: 0 6px 14px rgba(244, 63, 94, 0.25);
+}
+
+.learning-card[data-date="2026-02-14"] .day {
+    color: color-mix(in srgb, var(--rose) 70%, white 30%);
+}
+
+.learning-card[data-date="2026-02-14"] .learning-topic {
+    background: color-mix(in srgb, var(--rose) 20%, transparent 80%);
+}
+
+.learning-card[data-date="2026-02-14"] .learning-topic h4::after {
+    content: " ❤";
+}
+
+.learning-card.valentine-day .valentine {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    text-align: center;
+}
+
+.learning-card.valentine-day .valentine h4 {
+    margin: 0;
+    font-size: 1.6rem;
+    letter-spacing: 0.02em;
+}
+
+.learning-card.valentine-day .valentine p {
+    margin-top: 0.9rem;
+    max-width: 70ch;
+    text-align: left;
+    line-height: 1.7;
+}
+
+@supports not (color: color-mix(in srgb, red, black)) {
+    .learning-card[data-date="2026-02-14"] {
+        background: linear-gradient(to bottom, #4b1a2b, #9b1c46);
+        border: 1px solid #f9a8d4;
+    }
+
+    .learning-card[data-date="2026-02-14"] .learning-card-header {
+        border-bottom-color: #f9a8d4;
+    }
+
+    .learning-card[data-date="2026-02-14"] .learning-date {
+        background: linear-gradient(135deg, #ffd1dc, #ff8fb1);
+        color: #3b0a1a;
+    }
+
+    .learning-card[data-date="2026-02-14"] .day {
+        color: #ffd1dc;
+    }
+
+    .learning-card[data-date="2026-02-14"] .learning-topic {
+        background: rgba(255, 255, 255, 0.14);
+    }
+
+}
+
+/* ---------------VALENTINE'S DAY-------------- */
+
 .learning-topic:hover {
     background: rgba(255, 255, 255, 0.12);
     transform: translateY(-3px);
