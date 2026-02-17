@@ -213,25 +213,60 @@
         content: |
           {
             "agent": {
-              "region": "{{ aws_region }}"
+              "metrics_collection_interval": 60,
+              "run_as_user": "cwagent"
             },
             "metrics": {
-              "append_dimensions": {
-                "InstanceId": "${aws:InstanceId}"
-              },
+              "namespace": "CWAgent",
               "metrics_collected": {
                 "cpu": {
-                  "measurement": ["cpu_usage_idle", "cpu_usage_user", "cpu_usage_system"],
-                  "totalcpu": true,
-                  "metrics_collection_interval": 60
-                },
-                "mem": {
-                  "measurement": ["mem_used_percent"],
-                  "metrics_collection_interval": 60
+                  "measurement": [
+                    "cpu_usage_idle",
+                    "cpu_usage_iowait",
+                    "cpu_usage_user",
+                    "cpu_usage_system"
+                  ],
+                  "metrics_collection_interval": 60,
+                  "resources": [
+                    "*"
+                  ],
+                  "totalcpu": false
                 },
                 "disk": {
-                  "measurement": ["used_percent"],
-                  "resources": ["*"],
+                  "measurement": [
+                    "used_percent"
+                  ],
+                  "metrics_collection_interval": 60,
+                  "resources": [
+                    "*"
+                  ]
+                },
+                "diskio": {
+                  "measurement": [
+                    "io_time"
+                  ],
+                  "metrics_collection_interval": 60,
+                  "resources": [
+                    "*"
+                  ]
+                },
+                "mem": {
+                  "measurement": [
+                    "mem_used_percent"
+                  ],
+                  "metrics_collection_interval": 60
+                },
+                "netstat": {
+                  "measurement": [
+                    "tcp_established",
+                    "tcp_time_wait"
+                  ],
+                  "metrics_collection_interval": 60
+                },
+                "swap": {
+                  "measurement": [
+                    "swap_used_percent"
+                  ],
                   "metrics_collection_interval": 60
                 }
               }
@@ -242,18 +277,21 @@
                   "collect_list": [
                     {
                       "file_path": "/var/log/messages",
-                      "log_group_name": "/aws/ec2/{{ inventory_hostname }}/messages",
-                      "log_stream_name": "{instance_id}"
+                      "log_group_name": "/michael-burbank/system",
+                      "log_stream_name": "{instance_id}/messages",
+                      "timezone": "UTC"
                     },
                     {
-                      "file_path": "/var/log/nginx/access.log",
-                      "log_group_name": "/aws/ec2/{{ inventory_hostname }}/nginx-access",
-                      "log_stream_name": "{instance_id}"
+                      "file_path": "/var/log/secure",
+                      "log_group_name": "/michael-burbank/system",
+                      "log_stream_name": "{instance_id}/secure",
+                      "timezone": "UTC"
                     },
                     {
-                      "file_path": "/var/log/nginx/error.log",
-                      "log_group_name": "/aws/ec2/{{ inventory_hostname }}/nginx-error",
-                      "log_stream_name": "{instance_id}"
+                      "file_path": "/var/log/cron",
+                      "log_group_name": "/michael-burbank/system",
+                      "log_stream_name": "{instance_id}/cron",
+                      "timezone": "UTC"
                     }
                   ]
                 }
