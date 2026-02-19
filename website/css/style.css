@@ -362,6 +362,51 @@ header {
     background: linear-gradient(90deg, var(--blue), var(--green));
 }
 
+.updates-archive {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    margin: -0.2rem 0 1.4rem;
+}
+
+.archive-label {
+    color: #bfdbfe;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.archive-link {
+    color: #c7d2fe;
+    text-decoration: none;
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 999px;
+    padding: 0.28rem 0.72rem;
+    font-size: 0.86rem;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.archive-link:hover {
+    color: var(--white);
+    background: rgba(30, 64, 175, 0.42);
+    border-color: rgba(125, 211, 252, 0.7);
+}
+
+.archive-link[aria-current="page"] {
+    color: var(--white);
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.52), rgba(52, 211, 153, 0.42));
+    border-color: rgba(125, 211, 252, 0.92);
+}
+
+.archive-status {
+    text-align: center;
+    color: #93a4c2;
+    font-size: 0.9rem;
+    margin: 0 0 1.3rem;
+}
+
 /* Grids */
 .topic-grid,
 .update-grid {
@@ -441,6 +486,10 @@ header {
     transition: transform 0.28s ease, box-shadow 0.28s ease;
     z-index: 1;
     max-width: 100%;
+}
+
+.update-card[hidden] {
+    display: none !important;
 }
 
 .topic-card p,
