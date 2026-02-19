@@ -622,7 +622,8 @@ header {
 }
 
 .learning-card[data-date="2026-02-14"] .day {
-    color: color-mix(in srgb, var(--rose) 70%, white 30%);
+    color: #ef4444;
+    text-shadow: 0 1px 6px rgba(239, 68, 68, 0.35);
 }
 
 .learning-card[data-date="2026-02-14"] .learning-topic {
@@ -671,7 +672,7 @@ header {
     }
 
     .learning-card[data-date="2026-02-14"] .day {
-        color: #ffd1dc;
+        color: #ef4444;
     }
 
     .learning-card[data-date="2026-02-14"] .learning-topic {
