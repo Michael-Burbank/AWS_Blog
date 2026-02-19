@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Reorder update cards so newest appear first (earliest at the back)
+// Reorder update cards and provide month archive filtering via ?month=YYYY-MM
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.update-grid');
     if (!container) return;
@@ -121,17 +121,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = Array.from(container.querySelectorAll('.update-card'));
     if (cards.length <= 1) return;
 
+    const parseDateOnlyAsLocal = (value) => {
+        if (!value) return NaN;
+        const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        if (!match) return NaN;
+
+        const year = Number(match[1]);
+        const monthIndex = Number(match[2]) - 1;
+        const day = Number(match[3]);
+        return new Date(year, monthIndex, day).getTime();
+    };
+
     const parseTimestamp = (card) => {
         // 1) Prefer data-date attribute if present (ISO recommended: YYYY-MM-DD)
         const dataDate = card.getAttribute('data-date');
         if (dataDate) {
+            const localDateOnlyTs = parseDateOnlyAsLocal(dataDate);
+            if (!Number.isNaN(localDateOnlyTs)) return localDateOnlyTs;
+
             const t = Date.parse(dataDate);
             if (!Number.isNaN(t)) return t;
         }
         // 2) Look for a <time datetime="..."> element
         const timeEl = card.querySelector('time[datetime]');
         if (timeEl && timeEl.getAttribute('datetime')) {
-            const t = Date.parse(timeEl.getAttribute('datetime'));
+            const datetimeValue = timeEl.getAttribute('datetime');
+            const localDateOnlyTs = parseDateOnlyAsLocal(datetimeValue);
+            if (!Number.isNaN(localDateOnlyTs)) return localDateOnlyTs;
+
+            const t = Date.parse(datetimeValue);
             if (!Number.isNaN(t)) return t;
         }
         // 3) Fallback: parse visible text in .learning-date (e.g., "December 10, 2025")
@@ -159,4 +177,130 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Re-append in sorted order
     withMeta.forEach(({ el }) => container.appendChild(el));
+
+    const validDates = withMeta
+        .filter(({ ts }) => Number.isFinite(ts))
+        .map(({ ts }) => new Date(ts));
+
+    const months = Array.from(new Set(validDates.map((d) => {
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        return `${d.getFullYear()}-${month}`;
+    }))).sort((a, b) => b.localeCompare(a));
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedMonth = params.get('month');
+    const selectedMonth = requestedMonth && months.includes(requestedMonth) ? requestedMonth : 'all';
+
+    const updatesSection = document.getElementById('updates') || container.closest('.updates');
+    if (!updatesSection) return;
+
+    const archiveBar = document.createElement('nav');
+    archiveBar.className = 'updates-archive';
+    archiveBar.setAttribute('aria-label', 'Monthly update archive');
+
+    const archiveLabel = document.createElement('span');
+    archiveLabel.className = 'archive-label';
+    archiveLabel.textContent = 'Archive:';
+    archiveBar.appendChild(archiveLabel);
+
+    const monthFormatter = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' });
+
+    const createArchiveLink = (key, label) => {
+        const link = document.createElement('a');
+        link.className = 'archive-link';
+        link.href = key === 'all' ? `${window.location.pathname}#updates` : `${window.location.pathname}?month=${key}#updates`;
+        link.dataset.month = key;
+        link.textContent = label;
+        return link;
+    };
+
+    archiveBar.appendChild(createArchiveLink('all', 'All'));
+
+    months.forEach((monthKey) => {
+        const [year, month] = monthKey.split('-').map(Number);
+        const label = monthFormatter.format(new Date(year, month - 1, 1));
+        archiveBar.appendChild(createArchiveLink(monthKey, label));
+    });
+
+    const status = document.createElement('p');
+    status.className = 'archive-status';
+
+    updatesSection.insertBefore(archiveBar, container);
+    updatesSection.insertBefore(status, container);
+
+    const setActiveArchiveLink = (monthKey) => {
+        archiveBar.querySelectorAll('.archive-link').forEach((link) => {
+            if (!(link instanceof HTMLAnchorElement)) return;
+            if (link.dataset.month === monthKey) {
+                link.setAttribute('aria-current', 'page');
+            } else {
+                link.removeAttribute('aria-current');
+            }
+        });
+    };
+
+    const applyMonthFilter = (monthKey) => {
+        let visibleCount = 0;
+        withMeta.forEach(({ el, ts }) => {
+            if (monthKey === 'all') {
+                el.hidden = false;
+                visibleCount += 1;
+                return;
+            }
+
+            if (!Number.isFinite(ts)) {
+                el.hidden = true;
+                return;
+            }
+
+            const dt = new Date(ts);
+            const month = String(dt.getMonth() + 1).padStart(2, '0');
+            const cardMonthKey = `${dt.getFullYear()}-${month}`;
+            const isVisible = cardMonthKey === monthKey;
+            el.hidden = !isVisible;
+            if (isVisible) visibleCount += 1;
+        });
+
+        setActiveArchiveLink(monthKey);
+
+        if (monthKey === 'all') {
+            status.textContent = `Showing all updates (${visibleCount}).`;
+        } else {
+            const [year, month] = monthKey.split('-').map(Number);
+            const label = monthFormatter.format(new Date(year, month - 1, 1));
+            status.textContent = `Showing ${label} updates (${visibleCount}).`;
+        }
+    };
+
+    const updateUrlMonth = (monthKey) => {
+        const nextParams = new URLSearchParams(window.location.search);
+        if (monthKey === 'all') {
+            nextParams.delete('month');
+        } else {
+            nextParams.set('month', monthKey);
+        }
+        const query = nextParams.toString();
+        const nextUrl = `${window.location.pathname}${query ? `?${query}` : ''}#updates`;
+        window.history.pushState({ month: monthKey }, '', nextUrl);
+    };
+
+    archiveBar.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        const link = target.closest('.archive-link');
+        if (!(link instanceof HTMLAnchorElement)) return;
+
+        event.preventDefault();
+        const monthKey = link.dataset.month || 'all';
+        applyMonthFilter(monthKey);
+        updateUrlMonth(monthKey);
+    });
+
+    window.addEventListener('popstate', () => {
+        const q = new URLSearchParams(window.location.search).get('month');
+        const monthKey = q && months.includes(q) ? q : 'all';
+        applyMonthFilter(monthKey);
+    });
+
+    applyMonthFilter(selectedMonth);
 });
