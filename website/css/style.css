@@ -14,6 +14,12 @@
     --amber: #fbbf24;
     --rose: #fb7185;
     /* Security */
+    /* Terraform */
+    --terraform: #623ce4;
+    /* Muted terraform shade */
+    --terraform-muted: color-mix(in srgb, var(--terraform) 55%, var(--navy) 45%);
+    --terraform-solid: color-mix(in srgb, var(--navy) 86%, #3b245e 14%);
+    --terraform-bg: color-mix(in srgb, var(--terraform-solid) 88%, transparent 12%);
 
     /* Surfaces */
     --surface-1: #ffffff;
@@ -51,6 +57,11 @@
         /* Fallback for rest day background */
         --rest-day-bg-solid: #1c1c3b;
         --rest-day-bg: rgba(28, 28, 59, 0.86);
+            /* Terraform fallbacks */
+            --terraform: #623ce4;
+            --terraform-muted: #7159d9;
+            --terraform-solid: #3b245e;
+            --terraform-bg: rgba(59, 36, 94, 0.86);
     }
 }
 
@@ -476,6 +487,13 @@ header {
     background: var(--rose);
 }
 
+/* Terraform topic card */
+.terraform-topic-card {
+    background: linear-gradient(145deg, #6b4ff0, #3b2aa6);
+    width: 100%;
+    max-width: 460px;
+}
+
 .update-card {
     background: linear-gradient(160deg, var(--surface-2), var(--surface-3));
     color: var(--text-main);
@@ -763,6 +781,10 @@ header {
 
 .topic-security {
     border-left: 6px solid var(--rose);
+}
+
+.topic-terraform {
+    border-left: 6px solid var(--terraform);
 }
 
 /* Topic page */
