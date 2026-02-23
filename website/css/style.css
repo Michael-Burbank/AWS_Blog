@@ -42,9 +42,9 @@
     --amber-muted: color-mix(in srgb, var(--amber) 55%, var(--navy) 45%);
     --rose-muted: color-mix(in srgb, var(--rose) 55%, var(--navy) 45%);
 
-    /* Rest day background (neutral navy blend) */
-    --rest-day-bg-solid: color-mix(in srgb, var(--navy) 86%, #30204b 14%);
-    --rest-day-bg: color-mix(in srgb, var(--rest-day-bg-solid) 88%, transparent 12%);
+    /* Rest day background (neutral navy blend) — subtly shifted hue */
+    --rest-day-bg-solid: color-mix(in srgb, var(--navy) 78%, #c3c2c4 22%);
+    --rest-day-bg: color-mix(in srgb, var(--rest-day-bg-solid) 84%, transparent 16%);
 }
 
 /* Fallback for older browsers without color-mix */
@@ -55,13 +55,13 @@
         --amber-muted: #a27a16;
         --rose-muted: #b34058;
         /* Fallback for rest day background */
-        --rest-day-bg-solid: #1c1c3b;
-        --rest-day-bg: rgba(28, 28, 59, 0.86);
-            /* Terraform fallbacks */
-            --terraform: #623ce4;
-            --terraform-muted: #7159d9;
-            --terraform-solid: #3b245e;
-            --terraform-bg: rgba(59, 36, 94, 0.86);
+        --rest-day-bg-solid: #2a203e;
+        --rest-day-bg: rgba(42, 32, 62, 0.86);
+        /* Terraform fallbacks */
+        --terraform: #623ce4;
+        --terraform-muted: #7159d9;
+        --terraform-solid: #3b245e;
+        --terraform-bg: rgba(59, 36, 94, 0.86);
     }
 }
 
@@ -723,6 +723,8 @@ header {
     line-height: 1.7;
 }
 
+/* END VALENTINE'S DAY */
+
 @supports not (color: color-mix(in srgb, red, black)) {
     .learning-card[data-date="2026-02-14"] {
         background: linear-gradient(to bottom, #4b1a2b, #9b1c46);
@@ -1082,18 +1084,23 @@ header {
 
 /* ====== Rest day & badges ====== */
 .learning-card.rest-day {
-    background: var(--rest-day-bg);
+    /* Distinct rest-day surface: subtle overlay + themed base */
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(2, 6, 23, 0.06)),
+        var(--rest-day-bg);
     color: var(--white);
-    border: 1px solid rgba(192, 132, 252, 0.26);
+    border: 1px solid rgba(125, 211, 252, 0.32);
+    box-shadow: 0 14px 34px rgba(2, 6, 23, 0.20);
+    border-radius: 16px;
 }
 
 .learning-card.rest-day .learning-card-header {
-    border-bottom-color: rgba(255, 255, 255, 0.25);
+    border-bottom-color: rgba(255, 255, 255, 0.32);
 }
 
 .learning-card.rest-day .learning-date {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.28);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+    border-color: rgba(255, 255, 255, 0.34);
     color: var(--white);
 }
 
