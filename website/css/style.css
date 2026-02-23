@@ -43,7 +43,7 @@
     --rose-muted: color-mix(in srgb, var(--rose) 55%, var(--navy) 45%);
 
     /* Rest day background (neutral navy blend) — subtly shifted hue */
-    --rest-day-bg-solid: color-mix(in srgb, var(--navy) 78%, #c3c2c4 22%);
+    --rest-day-bg-solid: color-mix(in srgb, var(--navy) 78%, #c9c7cc 22%);
     --rest-day-bg: color-mix(in srgb, var(--rest-day-bg-solid) 84%, transparent 16%);
 }
 
