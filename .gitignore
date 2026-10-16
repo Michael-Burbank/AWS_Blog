@@ -45,3 +45,5 @@ aws-exports.js
 inventory.ini
 AWS-Ansible.code-workspace
 devices.json
+terraform/.terraform
+
